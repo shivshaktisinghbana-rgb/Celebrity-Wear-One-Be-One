@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Products - Celebrity Wear</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- Header -->
+<div id="cw-header"></div>
+
+<!-- PAGE TITLE -->
+<section class="cw-products-header text-center py-5">
+    <div class="container">
+        <h1 id="cw-category-title">All Products</h1>
+    </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="cw-products py-5">
+    <div class="container">
+
+        <div class="row" id="cw-product-list">
+
+            <!-- JS se products load honge -->
+
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<div id="cw-footer"></div>
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/include.js"></script>
+
+<!-- PRODUCT SCRIPT -->
+<script>
+const products = [
+    {name:"T-Shirt Black", price:999, category:"tshirt", img:"images/products/p1.jpg"},
+    {name:"Blue Jeans", price:1999, category:"jeans", img:"images/products/p2.jpg"},
+    {name:"Formal Shirt", price:1499, category:"shirt", img:"images/products/p3.jpg"},
+    {name:"Trouser Grey", price:1299, category:"trouser", img:"images/products/p4.jpg"}
+];
+
+// URL se category lena
+const params = new URLSearchParams(window.location.search);
+const category = params.get("cat");
+
+// Title change
+if(category){
+    document.getElementById("cw-category-title").innerText = category.toUpperCase();
+}
+
+// Filter products
+const filtered = category 
+    ? products.filter(p => p.category === category)
+    : products;
+
+// Show products
+const container = document.getElementById("cw-product-list");
+
+filtered.forEach(p => {
+    container.innerHTML += `
+        <div class="col-md-3 mb-4">
+            <div class="cw-product-card">
+                <img src="${p.img}" class="img-fluid">
+                <h6>${p.name}</h6>
+                <p>₹${p.price}</p>
+                <a href="#" class="btn btn-dark btn-sm">Buy Now</a>
+            </div>
+        </div>
+    `;
+});
+</script>
+
+</body>
+</html>
